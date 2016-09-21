@@ -1,0 +1,11 @@
+version: '2'
+services:
+  eprints-db:
+    image: 'mariadb:10.1'
+    environment:
+      MYSQL_ROOT_PASSWORD: 'abc'
+  eprints-app:
+    image: 'ubma/eprints'
+    ports:
+      - '8080:80'
+    build: '.'
