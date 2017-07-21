@@ -27,14 +27,14 @@ WORKDIR /opt/eprints3
 ENV EPRINTS_TARBALL="eprints-3.4-preview-2.tgz"
 ENV EPRINTS_TARBALL_PUBL="eprints_publication_flavour-3.4-preview-2.tgz"
 ENV DEBIAN_FRONTEND=noninteractive
-ENV MYSQL_PASSWORD="root"
 
 # Dependencies taken from the Debian source package control file:
+# lynx \
+# libselinux1 \
+# libsepol1 \
 RUN apt-get update -y && apt-get install -y \
     perl \
     libncurses5 \
-    libselinux1 \
-    libsepol1 \
     apache2 \
     libapache2-mod-perl2 \
     libxml-libxml-perl \
@@ -49,23 +49,25 @@ RUN apt-get update -y && apt-get install -y \
     libxml-twig-perl \
     libarchive-any-perl \
     libjson-perl \
-    lynx \
+    libsearch-xapian-perl \
+    libcgi-pm-perl \
+    libdbi-perl \
+    libdbd-mysql-perl \
+    elinks \
     wget \
     ghostscript \
     xpdf \
     antiword \
-    elinks \
     pdftk \
     texlive-base \
     texlive-base-bin \
     psutils \
     imagemagick \
     adduser \
-    unzip \
-    libsearch-xapian-perl
+    unzip
 
 # Dependencies taken from the Debian source package control file:
-RUN apt-get update -y && apt-get install -y sudo expect libcgi-pm-perl libdbi-perl libdbd-mysql-perl
+RUN apt-get update -y && apt-get install -y sudo expect 
 
 ADD eprints-3.4-preview-2.tgz /opt
 ADD eprints_publication_flavour-3.4-preview-2.tgz /opt/eprints3
@@ -77,4 +79,4 @@ RUN chown -R eprints:eprints /opt/eprints3
 # RUN bash install.sh
 
 EXPOSE 80
-CMD /usr/sbin/apache2ctl -D FOREGROUND
+CMD sudo service apache2 stop && /usr/sbin/apache2ctl -D FOREGROUND

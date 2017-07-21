@@ -3,7 +3,7 @@ services:
   eprints-db:
     image: 'mariadb:10.1'
     environment:
-      MYSQL_ROOT_PASSWORD: 'abc'
+      MYSQL_ROOT_PASSWORD: 'root'
   eprints-app:
     image: 'ubma/eprints'
     ports:
